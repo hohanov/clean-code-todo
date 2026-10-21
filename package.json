@@ -1,0 +1,32 @@
+{
+  "name": "clean-code-s1e1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hohanov/clean-code-s1e1.git"
+  },
+  "keywords": [],
+  "author": "hohanov",
+  "license": "ISC",
+  "type": "module",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/hohanov/clean-code-s1e1/issues"
+  },
+  "homepage": "https://github.com/hohanov/clean-code-s1e1#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.13.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.13.0",
+    "prettier": "^3.9.10"
+  }
+}
