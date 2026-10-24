@@ -91,6 +91,8 @@ const bindTaskEvents = function (listItem, checkBoxEventHandler) {
   const editButton = listItem.querySelector('button.edit');
   const deleteButton = listItem.querySelector('button.delete');
 
+  // Property assignment, not addEventListener: a task is rebound on every move between lists,
+  // and the previous checkbox handler has to be replaced, not kept alongside the new one.
   editButton.onclick = editTask;
   deleteButton.onclick = deleteTask;
   checkBox.onchange = checkBoxEventHandler;
