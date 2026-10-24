@@ -14,6 +14,7 @@ const createNewTaskElement = function (taskText) {
   const deleteButton = document.createElement('button');
   const deleteButtonImg = document.createElement('img');
 
+  // innerText, not innerHTML: the task text comes from user input and must not be parsed as markup.
   label.innerText = taskText;
   label.className = 'task';
 
@@ -21,7 +22,7 @@ const createNewTaskElement = function (taskText) {
   editInput.type = 'text';
   editInput.className = 'task';
 
-  editButton.innerText = 'Edit'; //innerText encodes special characters, HTML does not.
+  editButton.innerText = 'Edit';
   editButton.className = 'edit';
 
   deleteButton.className = 'delete';
