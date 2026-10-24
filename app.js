@@ -26,7 +26,8 @@ const addTask = function () {
   if (!newTaskInput.value) return;
   const listItem = createNewTaskElement(newTaskInput.value);
 
-  moveTaskToIncomplete(listItem);
+  bindTaskEvents(listItem);
+  incompleteTaskList.appendChild(listItem);
 
   newTaskInput.value = '';
 };
@@ -55,42 +56,28 @@ const deleteTask = function () {
   taskList.removeChild(listItem);
 };
 
-const moveTaskToIncomplete = function (listItem) {
-  incompleteTaskList.appendChild(listItem);
-  bindTaskEvents(listItem, markTaskCompleted);
+const toggleTaskCompletion = function () {
+  const listItem = this.parentNode;
+  const targetTaskList = this.checked ? completedTaskList : incompleteTaskList;
+  targetTaskList.appendChild(listItem);
 };
 
-const moveTaskToCompleted = function (listItem) {
-  completedTaskList.appendChild(listItem);
-  bindTaskEvents(listItem, markTaskIncomplete);
-};
-
-const markTaskCompleted = function () {
-  moveTaskToCompleted(this.parentNode);
-};
-
-const markTaskIncomplete = function () {
-  moveTaskToIncomplete(this.parentNode);
-};
-
-const bindTaskEvents = function (listItem, checkBoxEventHandler) {
+const bindTaskEvents = function (listItem) {
   const checkBox = listItem.querySelector('input[type=checkbox]');
   const editButton = listItem.querySelector('button.edit');
   const deleteButton = listItem.querySelector('button.delete');
 
-  // Property assignment, not addEventListener: a task is rebound on every move between lists,
-  // and the previous checkbox handler has to be replaced, not kept alongside the new one.
-  editButton.onclick = editTask;
-  deleteButton.onclick = deleteTask;
-  checkBox.onchange = checkBoxEventHandler;
+  editButton.addEventListener('click', editTask);
+  deleteButton.addEventListener('click', deleteTask);
+  checkBox.addEventListener('change', toggleTaskCompletion);
 };
 
-const bindTaskListEvents = function (taskList, checkBoxEventHandler) {
+const bindTaskListEvents = function (taskList) {
   for (const listItem of taskList.children) {
-    bindTaskEvents(listItem, checkBoxEventHandler);
+    bindTaskEvents(listItem);
   }
 };
 
 addButton.addEventListener('click', addTask);
-bindTaskListEvents(incompleteTaskList, markTaskCompleted);
-bindTaskListEvents(completedTaskList, markTaskIncomplete);
+bindTaskListEvents(incompleteTaskList);
+bindTaskListEvents(completedTaskList);
