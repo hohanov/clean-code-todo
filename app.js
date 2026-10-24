@@ -93,20 +93,20 @@ const deleteTask = function () {
 
 const moveTaskToIncomplete = function (listItem) {
   incompleteTaskList.appendChild(listItem);
-  bindTaskEvents(listItem, taskCompleted);
+  bindTaskEvents(listItem, markTaskCompleted);
 };
 
 const moveTaskToCompleted = function (listItem) {
   completedTaskList.appendChild(listItem);
-  bindTaskEvents(listItem, taskIncomplete);
+  bindTaskEvents(listItem, markTaskIncomplete);
 };
 
 //Mark task completed
-const taskCompleted = function () {
+const markTaskCompleted = function () {
   moveTaskToCompleted(this.parentNode);
 };
 
-const taskIncomplete = function () {
+const markTaskIncomplete = function () {
   //Mark task as incomplete.
   //When the checkbox is unchecked
   moveTaskToIncomplete(this.parentNode);
@@ -127,7 +127,7 @@ const bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
   editButton.onclick = editTask;
   //Bind deleteTask to delete button.
   deleteButton.onclick = deleteTask;
-  //Bind taskCompleted to checkBoxEventHandler.
+  //Bind markTaskCompleted to checkBoxEventHandler.
   checkBox.onchange = checkBoxEventHandler;
 };
 
@@ -137,8 +137,8 @@ const bindTaskListEvents = function (taskList, checkBoxEventHandler) {
   }
 };
 
-bindTaskListEvents(incompleteTaskList, taskCompleted);
-bindTaskListEvents(completedTaskList, taskIncomplete);
+bindTaskListEvents(incompleteTaskList, markTaskCompleted);
+bindTaskListEvents(completedTaskList, markTaskIncomplete);
 
 // Issues with usability don't get seen until they are in front of a human tester.
 
