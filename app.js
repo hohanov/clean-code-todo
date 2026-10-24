@@ -9,7 +9,7 @@
 
 const taskInput = document.getElementById('new-task'); //Add a new task.
 const addButton = document.getElementsByTagName('button')[0]; //first button
-const incompleteTaskHolder = document.getElementById('incompleteTasks'); //ul of #incompleteTasks
+const incompleteTaskHolder = document.getElementById('incomplete-tasks'); //ul of #incompleteTasks
 const completedTasksHolder = document.getElementById('completed-tasks'); //completed-tasks
 
 //New task list item
@@ -67,7 +67,7 @@ const editTask = function () {
   const editInput = listItem.querySelector('input[type=text]');
   const label = listItem.querySelector('label');
   const editBtn = listItem.querySelector('.edit');
-  const containsClass = listItem.classList.contains('editMode');
+  const containsClass = listItem.classList.contains('edit-mode');
   //If class of the parent is .editmode
   if (containsClass) {
     //switch to .editmode
@@ -80,7 +80,7 @@ const editTask = function () {
   }
 
   //toggle .editmode on the parent.
-  listItem.classList.toggle('editMode');
+  listItem.classList.toggle('edit-mode');
 };
 
 //Delete task.
