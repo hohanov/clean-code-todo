@@ -3,14 +3,20 @@ const addButton = document.getElementsByTagName('button')[0];
 const incompleteTaskList = document.getElementById('incomplete-tasks');
 const completedTaskList = document.getElementById('completed-tasks');
 
+const initialTasks = [
+  { text: 'Pay Bills', isCompleted: false },
+  { text: 'Go Shopping', isCompleted: false, isEditing: true },
+  { text: 'See the Doctor', isCompleted: true },
+];
+
 const createElement = function (tagName, properties) {
   return Object.assign(document.createElement(tagName), properties);
 };
 
-const createNewTaskElement = function (taskText) {
+const createNewTaskElement = function (taskText, isCompleted) {
   const listItem = document.createElement('li');
 
-  const checkBox = createElement('input', { type: 'checkbox' });
+  const checkBox = createElement('input', { type: 'checkbox', checked: isCompleted });
   // innerText, not innerHTML: the task text comes from user input and must not be parsed as markup.
   const label = createElement('label', { className: 'task', innerText: taskText });
   const editInput = createElement('input', { type: 'text', className: 'task' });
@@ -22,19 +28,26 @@ const createNewTaskElement = function (taskText) {
   return listItem;
 };
 
-const addTask = function () {
-  if (!newTaskInput.value) return;
-  const listItem = createNewTaskElement(newTaskInput.value);
+const getTaskList = function (isCompleted) {
+  return isCompleted ? completedTaskList : incompleteTaskList;
+};
+
+const renderTask = function ({ text, isCompleted, isEditing }) {
+  const listItem = createNewTaskElement(text, isCompleted);
 
   bindTaskEvents(listItem);
-  incompleteTaskList.appendChild(listItem);
+  if (isEditing) toggleTaskEditMode(listItem);
+  getTaskList(isCompleted).appendChild(listItem);
+};
+
+const addTask = function () {
+  if (!newTaskInput.value) return;
+  renderTask({ text: newTaskInput.value, isCompleted: false });
 
   newTaskInput.value = '';
 };
 
-const editTask = function () {
-  const listItem = this.parentNode;
-
+const toggleTaskEditMode = function (listItem) {
   const editInput = listItem.querySelector('input[type=text]');
   const label = listItem.querySelector('label');
   const editButton = listItem.querySelector('.edit');
@@ -50,6 +63,10 @@ const editTask = function () {
   listItem.classList.toggle('edit-mode');
 };
 
+const editTask = function () {
+  toggleTaskEditMode(this.parentNode);
+};
+
 const deleteTask = function () {
   const listItem = this.parentNode;
   const taskList = listItem.parentNode;
@@ -57,9 +74,7 @@ const deleteTask = function () {
 };
 
 const toggleTaskCompletion = function () {
-  const listItem = this.parentNode;
-  const targetTaskList = this.checked ? completedTaskList : incompleteTaskList;
-  targetTaskList.appendChild(listItem);
+  getTaskList(this.checked).appendChild(this.parentNode);
 };
 
 const bindTaskEvents = function (listItem) {
@@ -72,12 +87,5 @@ const bindTaskEvents = function (listItem) {
   checkBox.addEventListener('change', toggleTaskCompletion);
 };
 
-const bindTaskListEvents = function (taskList) {
-  for (const listItem of taskList.children) {
-    bindTaskEvents(listItem);
-  }
-};
-
 addButton.addEventListener('click', addTask);
-bindTaskListEvents(incompleteTaskList);
-bindTaskListEvents(completedTaskList);
+initialTasks.forEach(renderTask);
