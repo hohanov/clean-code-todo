@@ -73,8 +73,6 @@ const markTaskIncomplete = function () {
   moveTaskToIncomplete(this.parentNode);
 };
 
-addButton.addEventListener('click', addTask);
-
 const bindTaskEvents = function (listItem, checkBoxEventHandler) {
   const checkBox = listItem.querySelector('input[type=checkbox]');
   const editButton = listItem.querySelector('button.edit');
@@ -93,5 +91,6 @@ const bindTaskListEvents = function (taskList, checkBoxEventHandler) {
   }
 };
 
+addButton.addEventListener('click', addTask);
 bindTaskListEvents(incompleteTaskList, markTaskCompleted);
 bindTaskListEvents(completedTaskList, markTaskIncomplete);
