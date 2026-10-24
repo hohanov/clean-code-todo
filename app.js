@@ -66,17 +66,17 @@ const editTask = function () {
 
   const editInput = listItem.querySelector('input[type=text]');
   const label = listItem.querySelector('label');
-  const editBtn = listItem.querySelector('.edit');
-  const containsClass = listItem.classList.contains('edit-mode');
+  const editButton = listItem.querySelector('.edit');
+  const isEditMode = listItem.classList.contains('edit-mode');
   //If class of the parent is .editmode
-  if (containsClass) {
+  if (isEditMode) {
     //switch to .editmode
     //label becomes the inputs value.
     label.innerText = editInput.value;
-    editBtn.innerText = 'Edit';
+    editButton.innerText = 'Edit';
   } else {
     editInput.value = label.innerText;
-    editBtn.innerText = 'Save';
+    editButton.innerText = 'Save';
   }
 
   //toggle .editmode on the parent.
@@ -86,9 +86,9 @@ const editTask = function () {
 //Delete task.
 const deleteTask = function () {
   const listItem = this.parentNode;
-  const ul = listItem.parentNode;
+  const taskList = listItem.parentNode;
   //Remove the parent list item from the ul.
-  ul.removeChild(listItem);
+  taskList.removeChild(listItem);
 };
 
 const moveTaskToIncomplete = function (listItem) {
@@ -117,11 +117,11 @@ const markTaskIncomplete = function () {
 //Set the click handler to the addTask function.
 addButton.addEventListener('click', addTask);
 
-const bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
+const bindTaskEvents = function (listItem, checkBoxEventHandler) {
   //select ListItems children
-  const checkBox = taskListItem.querySelector('input[type=checkbox]');
-  const editButton = taskListItem.querySelector('button.edit');
-  const deleteButton = taskListItem.querySelector('button.delete');
+  const checkBox = listItem.querySelector('input[type=checkbox]');
+  const editButton = listItem.querySelector('button.edit');
+  const deleteButton = listItem.querySelector('button.delete');
 
   //Bind editTask to edit button.
   editButton.onclick = editTask;
@@ -132,8 +132,8 @@ const bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
 };
 
 const bindTaskListEvents = function (taskList, checkBoxEventHandler) {
-  for (const taskListItem of taskList.children) {
-    bindTaskEvents(taskListItem, checkBoxEventHandler);
+  for (const listItem of taskList.children) {
+    bindTaskEvents(listItem, checkBoxEventHandler);
   }
 };
 
