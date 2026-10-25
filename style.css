@@ -7,7 +7,6 @@ body {
 .eisenhower-matrix {
   width: 500px;
   margin: 0 auto;
-  display: block;
   text-align: right;
 }
 .eisenhower-matrix img {
@@ -23,13 +22,11 @@ body {
   }
 }
 .todo-app {
-  display: block;
   width: 500px;
   margin: 0 auto 0;
 }
 .task {
   width: 56%;
-  display: inline-block;
   flex-grow: 1;
 }
 .task-row-wrapper {
@@ -111,7 +108,6 @@ li > label {
   padding-left: 10px;
   box-sizing: border-box;
   font-size: 18px;
-  width: 226px;
 }
 button.delete img {
   height: 2em;
