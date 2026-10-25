@@ -63,18 +63,17 @@ const toggleTaskEditMode = function (listItem) {
   listItem.classList.toggle('edit-mode');
 };
 
-const editTask = function () {
-  toggleTaskEditMode(this.parentNode);
+const editTask = function (event) {
+  toggleTaskEditMode(event.currentTarget.closest('li'));
 };
 
-const deleteTask = function () {
-  const listItem = this.parentNode;
-  const taskList = listItem.parentNode;
-  taskList.removeChild(listItem);
+const deleteTask = function (event) {
+  event.currentTarget.closest('li').remove();
 };
 
-const toggleTaskCompletion = function () {
-  getTaskList(this.checked).appendChild(this.parentNode);
+const toggleTaskCompletion = function (event) {
+  const checkBox = event.currentTarget;
+  getTaskList(checkBox.checked).appendChild(checkBox.closest('li'));
 };
 
 const bindTaskEvents = function (listItem) {
