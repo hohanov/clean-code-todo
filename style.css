@@ -36,9 +36,6 @@ ul {
   margin: 0;
   padding: 0px;
 }
-li {
-  list-style: none;
-}
 input,
 button {
   outline: none;
@@ -93,6 +90,7 @@ input#new-task {
 
 /* Task list */
 li {
+  list-style: none;
   overflow: hidden;
   padding: 20px 0;
   border-bottom: 1px solid #eee;
